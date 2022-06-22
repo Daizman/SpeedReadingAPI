@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpeedReading.Domain.User
+namespace SpeedReading.Domain.Task
 {
-	public class RefreshToken
+	public class TrainingTaskResults
 	{
 
 	}
