@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpeedReading.Domain
+namespace SpeedReading.Persistent.EntityTypeConfigurations
 {
-	public class TrainingDay
+	public class PictureMemorizeConfiguration
 	{
 
 	}

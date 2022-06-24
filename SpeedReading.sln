@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedReading.Api", "SpeedReading.Api\SpeedReading.Api.csproj", "{55E52C22-6592-4AF0-9FBB-206CF079936D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedReading.Api", "SpeedReading.Api\SpeedReading.Api.csproj", "{55E52C22-6592-4AF0-9FBB-206CF079936D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{EB6D4B56-E432-43FB-80AB-363A07450851}"
 EndProject
@@ -13,13 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{799EC87D-A1A3-4A81-B75B-023FB4988EC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedReading.Domain", "SpeedReading.Domain\SpeedReading.Domain.csproj", "{1BDC8334-3C14-4AC7-AF24-472680EA465B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedReading.Domain", "SpeedReading.Domain\SpeedReading.Domain.csproj", "{1BDC8334-3C14-4AC7-AF24-472680EA465B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedReading.Application", "SpeedReading.Application\SpeedReading.Application.csproj", "{224E8517-5B5D-405F-A0BC-44124F49F730}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedReading.Application", "SpeedReading.Application\SpeedReading.Application.csproj", "{224E8517-5B5D-405F-A0BC-44124F49F730}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedReading.Presentation", "SpeedReading.Presentation\SpeedReading.Presentation.csproj", "{E52471A0-6C8C-4ECF-BFDF-67CC93ECC514}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedReading.Tests", "SpeedReading.Tests\SpeedReading.Tests.csproj", "{2A1CD51F-408E-4F1B-9805-833A343C9873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedReading.Tests", "SpeedReading.Tests\SpeedReading.Tests.csproj", "{2A1CD51F-408E-4F1B-9805-833A343C9873}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedReading.Persistent", "SpeedReading.Persistent\SpeedReading.Persistent.csproj", "{82D501D1-88A9-4B1B-AB34-0E1F9F17B667}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,14 +39,14 @@ Global
 		{224E8517-5B5D-405F-A0BC-44124F49F730}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{224E8517-5B5D-405F-A0BC-44124F49F730}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{224E8517-5B5D-405F-A0BC-44124F49F730}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E52471A0-6C8C-4ECF-BFDF-67CC93ECC514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E52471A0-6C8C-4ECF-BFDF-67CC93ECC514}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E52471A0-6C8C-4ECF-BFDF-67CC93ECC514}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E52471A0-6C8C-4ECF-BFDF-67CC93ECC514}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2A1CD51F-408E-4F1B-9805-833A343C9873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2A1CD51F-408E-4F1B-9805-833A343C9873}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A1CD51F-408E-4F1B-9805-833A343C9873}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A1CD51F-408E-4F1B-9805-833A343C9873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82D501D1-88A9-4B1B-AB34-0E1F9F17B667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82D501D1-88A9-4B1B-AB34-0E1F9F17B667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82D501D1-88A9-4B1B-AB34-0E1F9F17B667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82D501D1-88A9-4B1B-AB34-0E1F9F17B667}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,8 +55,8 @@ Global
 		{55E52C22-6592-4AF0-9FBB-206CF079936D} = {EB6D4B56-E432-43FB-80AB-363A07450851}
 		{1BDC8334-3C14-4AC7-AF24-472680EA465B} = {6626760A-DEB2-45D8-ADC5-5D660C432758}
 		{224E8517-5B5D-405F-A0BC-44124F49F730} = {6626760A-DEB2-45D8-ADC5-5D660C432758}
-		{E52471A0-6C8C-4ECF-BFDF-67CC93ECC514} = {5CEAC158-4883-4E2B-A656-4D6318A1216A}
 		{2A1CD51F-408E-4F1B-9805-833A343C9873} = {799EC87D-A1A3-4A81-B75B-023FB4988EC3}
+		{82D501D1-88A9-4B1B-AB34-0E1F9F17B667} = {5CEAC158-4883-4E2B-A656-4D6318A1216A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {782FF01B-84EA-43D6-A41D-9102D263175A}

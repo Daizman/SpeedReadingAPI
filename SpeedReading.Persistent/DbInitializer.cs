@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpeedReading.Domain.Task
+namespace SpeedReading.Persistent
 {
-	public class TrainingTaskResults
+	public class DbInitializer
 	{
 
 	}

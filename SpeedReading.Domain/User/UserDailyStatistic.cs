@@ -1,5 +1,4 @@
 ﻿using SpeedReading.Domain.Task;
-using System.Text.Json.Serialization;
 
 namespace SpeedReading.Domain.User
 {
@@ -7,7 +6,6 @@ namespace SpeedReading.Domain.User
 	{
 		private static int TaskInPlanCount = 10;
 
-		[JsonIgnore]
 		public Guid Id { get; set; }
 		public Guid UserId { get; set; }
 		public DateTime Date { get; set; }
