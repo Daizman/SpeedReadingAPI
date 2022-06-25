@@ -1,13 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SpeedReading.Application.Common.Interfaces;
 
 namespace SpeedReading.Persistent
 {
-	public class DependencyInjection
+	public static class DependencyInjection
 	{
-
+		public static IServiceCollection AddPersistent(this IServiceCollection services, IConfiguration configuration)
+		{
+			string connection = configuration.GetConnectionString("SpeedReadingAPI");
+			services.AddDbContext<ApplicationDbContext>(options =>
+			{
+				options.UseNpgsql(connection, npgsqlOptions =>
+				{
+					npgsqlOptions.MigrationsAssembly("SpeedReading.Api");
+				});
+			});
+			
+			services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+			return services;
+		}
 	}
 }

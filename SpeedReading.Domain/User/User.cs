@@ -11,7 +11,7 @@ namespace SpeedReading.Domain.User
 		public byte[] Password { get; set; }
 		public string Email { get; set; }
 		// base64 format
-		public string Avatar { get; set; }
+		public string Avatar { get; set; } = string.Empty;
 		public string FirstName { get; set; } = string.Empty;
 		public string LastName { get; set; } = string.Empty;
 		public DateTime RegistrationDate { get; set; }

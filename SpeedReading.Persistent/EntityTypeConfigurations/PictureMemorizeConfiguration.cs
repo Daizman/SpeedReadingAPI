@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SpeedReading.Persistent.EntityTypeConfigurations
+﻿namespace SpeedReading.Persistent.EntityTypeConfigurations
 {
-	public class PictureMemorizeConfiguration
+	public class PictureMemorizeConfiguration : IEntityTypeConfiguration<PictureMemorize>
 	{
-
+		public void Configure(EntityTypeBuilder<PictureMemorize> builder)
+		{
+			builder.HasBaseType(typeof(TrainingTask));
+		}
 	}
 }

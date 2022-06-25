@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SpeedReading.Persistent
+﻿namespace SpeedReading.Persistent
 {
-	public class DbInitializer
+	public static class DbInitializer
 	{
-
+		public static async Task Initialize(ApplicationDbContext context)
+		{
+			await context.Database.EnsureCreatedAsync();
+		}
 	}
 }
