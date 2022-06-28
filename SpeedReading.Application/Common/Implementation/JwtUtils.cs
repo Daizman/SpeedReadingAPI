@@ -59,7 +59,7 @@ namespace SpeedReading.Application.Common.Implementation
 			return token;
 		}
 			
-		public Guid ValidateJwtToken(string jwtToken)
+		public async Task<Guid> ValidateJwtToken(string jwtToken)
 		{
 			if (string.IsNullOrWhiteSpace(jwtToken))
 			{
@@ -67,6 +67,27 @@ namespace SpeedReading.Application.Common.Implementation
 			}
 
 			JwtSecurityTokenHandler tokenHandler = new();
+			byte[] key = Encoding.UTF8.GetBytes(_settings.Secret);
+			try
+			{
+				var tokenValidationResult = await tokenHandler.ValidateTokenAsync(jwtToken, new()
+															  {
+																  ValidateIssuerSigningKey = true,
+																  IssuerSigningKey = new SymmetricSecurityKey(key),
+																  ValidateIssuer = false,
+																  ValidateAudience = false,
+																  ClockSkew = TimeSpan.Zero
+															  });
+
+				var jwtSecurityToken = tokenValidationResult.SecurityToken as JwtSecurityToken;
+				Guid userId = Guid.Parse(jwtSecurityToken.Claims.First(x => x.Type == "id").Value);
+
+				return userId;
+			}
+			catch
+			{
+				return Guid.Empty;
+			}
 		}
 	}
 }
