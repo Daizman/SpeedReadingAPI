@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SpeedReading.Application.Common.Exceptions;
-using SpeedReading.Application.Common.Interfaces;
+﻿using AutoMapper.QueryableExtensions;
 using SpeedReading.Application.Dtos.User;
 using SpeedReading.Domain.User;
 using System.Security.Cryptography;
@@ -12,28 +10,20 @@ namespace SpeedReading.Application.Common.Implementation
 	{
 		private readonly SHA256 _SHA256;
 
-		public UserService(IApplicationDbContext context) : base(context) 
+		public UserService(IApplicationDbContext context, IMapper mapper) : base(context, mapper) 
 			=> _SHA256 = SHA256.Create();
 
-		public async Task<IEnumerable<UserDto>> GetUsersAsync()
+		public async Task<UserListDto> GetUsersAsync()
 		{
-			return await _context.Users.Select(user => new UserDto
-			{
-				Id = user.Id,
-				Login = user.Login,
-				Email = user.Email,
-				FirstName = user.FirstName,
-				LastName = user.LastName,
-				Avatar = user.Avatar,
-				RefreshTokens = user.RefreshTokens
-			}).ToListAsync();
+			List<UserLookupDto> users = 
+				await _context.Users.ProjectTo<UserLookupDto>(_mapper.ConfigurationProvider).ToListAsync();
+			return new UserListDto(users);
 		}
 
 		public async Task<UserDto> GetUserAsync(Guid id)
 		{
 			User user = await FindUserAsync(id);
-
-			return user.AsDto();
+			return _mapper.Map<UserDto>(user);
 		}
 
 		public async Task<Guid> CreateAsync(CreateUserDto dto)

@@ -1,9 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using SpeedReading.Application.Common.Exceptions;
-using SpeedReading.Application.Common.Interfaces;
+﻿using Microsoft.Extensions.Options;
 using SpeedReading.Application.Common.Models;
-using SpeedReading.Application.Dtos;
 using SpeedReading.Domain.Auth;
 using SpeedReading.Domain.User;
 
@@ -15,7 +11,7 @@ namespace SpeedReading.Application.Common.Implementation
 		private readonly IUserService _userService;
 		private readonly AppSettings _appSettings;
 
-		public AuthService(IApplicationDbContext context, IJwtUtils jwtUtils, IUserService userService, IOptions<AppSettings> appSettings) : base(context)
+		public AuthService(IApplicationDbContext context, IMapper mapper, IJwtUtils jwtUtils, IUserService userService, IOptions<AppSettings> appSettings) : base(context, mapper)
 			=> (_jwtUtils, _userService, _appSettings) = (jwtUtils, userService,appSettings.Value);
 
 		public async Task<UserAuthResponseDto> Authanticate(UserAuthRequestDto request, string ipAddress)

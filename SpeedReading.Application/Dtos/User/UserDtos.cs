@@ -44,4 +44,21 @@ namespace SpeedReading.Application.Dtos.User
 		[JsonIgnore]
 		public List<RefreshToken> RefreshTokens { get; set; }
 	}
+
+	public record UserLookupDto
+	{
+		public Guid Id { get; init; }
+		public string Login { get; init; }
+		public string Email { get; init; }
+
+		public void Mapping(Profile profile)
+		{
+			profile.CreateMap<Domain.User.User, UserLookupDto>()
+				.ForMember(userDto => userDto.Id, opt => opt.MapFrom(user => user.Id))
+				.ForMember(userDto => userDto.Login, opt => opt.MapFrom(user => user.Login))
+				.ForMember(userDto => userDto.Email, opt => opt.MapFrom(user => user.Email));
+		}
+	}
+
+	public record UserListDto(IList<UserLookupDto> Users);
 }
