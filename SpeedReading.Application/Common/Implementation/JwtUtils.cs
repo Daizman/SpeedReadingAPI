@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
-using SpeedReading.Application.Common.Interfaces;
 using SpeedReading.Application.Common.Models;
 using SpeedReading.Domain.Auth;
 using SpeedReading.Domain.User;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,7 +14,7 @@ namespace SpeedReading.Application.Common.Implementation
 	{
 		private readonly AppSettings _settings;
 
-		public JwtUtils(IApplicationDbContext context, IOptions<AppSettings> settings) : base(context) => _settings = settings.Value;
+		public JwtUtils(IApplicationDbContext context, IMapper mapper, IOptions<AppSettings> settings) : base(context, mapper) => _settings = settings.Value;
 
 		public string GenerateJwtToken(User user)
 		{
