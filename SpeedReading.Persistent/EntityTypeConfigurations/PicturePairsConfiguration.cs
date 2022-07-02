@@ -4,7 +4,7 @@
 	{
 		public void Configure(EntityTypeBuilder<PicturePair> builder)
 		{
-			builder.HasBaseType(typeof(TrainingTask));
+			builder.ToTable(nameof(PicturePair));
 		}
 	}
 }

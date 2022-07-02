@@ -1,5 +1,4 @@
-﻿using SpeedReading.Domain;
-using SpeedReading.Domain.User;
+﻿using SpeedReading.Domain.User;
 
 namespace SpeedReading.Persistent.EntityTypeConfigurations
 {
@@ -7,7 +6,7 @@ namespace SpeedReading.Persistent.EntityTypeConfigurations
 	{
 		public void Configure(EntityTypeBuilder<UserText> builder)
 		{
-			builder.HasBaseType(typeof(Text));
+			builder.ToTable(nameof(UserText));
 		}
 	}
 }

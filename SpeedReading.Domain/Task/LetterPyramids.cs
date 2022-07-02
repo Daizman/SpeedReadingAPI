@@ -1,4 +1,5 @@
 ﻿using SpeedReading.Domain.Task.Enums;
+using SpeedReading.Domain.Task.OwnedTables;
 
 namespace SpeedReading.Domain.Task
 {
@@ -6,7 +7,7 @@ namespace SpeedReading.Domain.Task
 	{
 		public override TrainingTaskCategory Category => TrainingTaskCategory.SeveralRepeats;
 		public char Divider { get; set; }
-		public List<string> Words { get; set; } = new();
+		public List<WordForLetterPyramid> Words { get; set; } = new();
 		public int RepeatsCount { get; set; }
 	}
 }

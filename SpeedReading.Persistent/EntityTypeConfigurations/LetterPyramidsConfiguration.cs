@@ -5,6 +5,7 @@
 		public void Configure(EntityTypeBuilder<LetterPyramids> builder)
 		{
 			builder.HasBaseType(typeof(TrainingTask));
+			builder.ToTable(nameof(LetterPyramids));
 		}
 	}
 }

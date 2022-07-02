@@ -6,6 +6,7 @@ namespace SpeedReading.Persistent.EntityTypeConfigurations
 	{
 		public void Configure(EntityTypeBuilder<Text> builder)
 		{
+			builder.ToTable(nameof(Text));
 			builder.HasKey(text => text.Id);
 			builder.HasIndex(text => text.Id).IsUnique();
 			builder.Property(text => text.Title).HasMaxLength(256);

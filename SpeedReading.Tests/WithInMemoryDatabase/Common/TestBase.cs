@@ -1,13 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpeedReading.Persistent;
 
 namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 {
-	public class TestBase
+	public abstract class TestBase : IAsyncDisposable
 	{
+		protected readonly ApplicationDbContext Context;
 
+		public TestBase()
+		{
+			Context = ApplicationContextFactory.Create();
+		}
+
+		public async ValueTask DisposeAsync()
+		{
+			await ApplicationContextFactory.Destroy(Context);
+		}
 	}
 }

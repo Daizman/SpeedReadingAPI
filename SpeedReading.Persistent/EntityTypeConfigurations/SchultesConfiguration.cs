@@ -4,7 +4,7 @@
 	{
 		public void Configure(EntityTypeBuilder<Schulte> builder)
 		{
-			builder.HasBaseType(typeof(TrainingTask));
+			builder.ToTable(nameof(Schulte));
 		}
 	}
 }

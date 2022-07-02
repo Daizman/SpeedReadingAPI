@@ -5,6 +5,7 @@
 		public void Configure(EntityTypeBuilder<ColourNaming> builder)
 		{
 			builder.HasBaseType(typeof(TrainingTask));
+			builder.ToTable(nameof(ColourNaming));
 		}
 	}
 }
