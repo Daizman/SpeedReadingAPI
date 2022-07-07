@@ -1,4 +1,5 @@
 ﻿using SpeedReading.Domain.Task.Enums;
+using SpeedReading.Domain.Task.OwnedTables;
 
 namespace SpeedReading.Domain.Task
 {
@@ -6,8 +7,8 @@ namespace SpeedReading.Domain.Task
 	{
 		public override TrainingTaskCategory Category => TrainingTaskCategory.PicturesWithDescriptions;
 		// base64 format
-		public string Picture { get; set; }
-		public string TrueDescription { get; set; }
-		public List<string> Descriptions { get; set; } = new();
+		public Picture Picture { get; set; }
+		public PictureDescription TrueDescription { get; set; }
+		public List<PictureDescription> Descriptions { get; set; } = new();
 	}
 }

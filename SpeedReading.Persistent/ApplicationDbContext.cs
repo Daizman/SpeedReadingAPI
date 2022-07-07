@@ -14,8 +14,8 @@ namespace SpeedReading.Persistent
 		public DbSet<TaskGeneralName> TasksGeneralNames { get; set; }
 		public DbSet<ColourNaming> ColourNamings { get; set; }
 		public DbSet<LetterPyramids> LetterPyramids { get; set; }
-		/*public DbSet<PictureMemorize> PicutreMemorizes { get; set; }
-		public DbSet<PicturePair> PicturePairs { get; set; }*/
+		public DbSet<PictureMemorize> PicutreMemorizes { get; set; }
+		public DbSet<PicturePair> PicturePairs { get; set; }
 		public DbSet<Schulte> Schultes { get; set; }
 		public DbSet<TaskWithText> TasksWithTexts { get; set; }
 
@@ -34,8 +34,8 @@ namespace SpeedReading.Persistent
 			builder.ApplyConfiguration(new TrainingTaskConfiguration());
 			builder.ApplyConfiguration(new ColourNamingConfiguration());
 			builder.ApplyConfiguration(new LetterPyramidsConfiguration());
-			/*builder.ApplyConfiguration(new PictureMemorizeConfiguration());
-			builder.ApplyConfiguration(new PicturePairsConfiguration());*/
+			builder.ApplyConfiguration(new PictureMemorizeConfiguration());
+			builder.ApplyConfiguration(new PicturePairsConfiguration());
 			builder.ApplyConfiguration(new SchultesConfiguration());
 			builder.ApplyConfiguration(new TaskWithTextConfiguration());
 			base.OnModelCreating(builder);
