@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using SpeedReading.Domain.Auth;
+﻿using SpeedReading.Domain.Auth;
 using System.Text.Json.Serialization;
 
 namespace SpeedReading.Application.Dtos.User
@@ -21,7 +20,7 @@ namespace SpeedReading.Application.Dtos.User
 		string? FirstName,
 		string? LastName);
 
-	public record UserDto
+	public record UserDto : IMapWith<Domain.User.User>
 	{
 		public Guid Id { get; init; }
 		public string Login { get; init; }
@@ -38,14 +37,15 @@ namespace SpeedReading.Application.Dtos.User
 				.ForMember(userDto => userDto.Email, opt => opt.MapFrom(user => user.Email))
 				.ForMember(userDto => userDto.Avatar, opt => opt.MapFrom(user => user.Avatar))
 				.ForMember(userDto => userDto.FirstName, opt => opt.MapFrom(user => user.FirstName))
-				.ForMember(userDto => userDto.LastName, opt => opt.MapFrom(user => user.LastName));
+				.ForMember(userDto => userDto.LastName, opt => opt.MapFrom(user => user.LastName))
+				.ForMember(userDto => userDto.RefreshTokens, opt => opt.MapFrom(user => user.RefreshTokens));
 		}
 
 		[JsonIgnore]
 		public List<RefreshToken> RefreshTokens { get; set; }
 	}
 
-	public record UserLookupDto
+	public record UserLookupDto : IMapWith<Domain.User.User>
 	{
 		public Guid Id { get; init; }
 		public string Login { get; init; }

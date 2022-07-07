@@ -9,7 +9,7 @@ namespace SpeedReading.Tests.MockedTests
 	{
 		private readonly Mock<IUserService> _userServiceStub = new();
 
-
+		// Подойдут больше для API
 		#region UserCRUD
 		[Fact]
 		public async Task GetUserAsync_WithUnexistingUser_ThrowsUserNotFound()
@@ -58,7 +58,7 @@ namespace SpeedReading.Tests.MockedTests
 			result.Should().BeEquivalentTo(expectedUsers);
 		}
 
-		[Fact]
+		/*[Fact]
 		public async Task CreateUserAsync_WithUserToCreate_ReturnsCreatedUser()
 		{
 			
@@ -98,7 +98,7 @@ namespace SpeedReading.Tests.MockedTests
 		public async Task DeleteUserAsync_WithCurrentUser_ReturnsNoContent()
 		{
 			
-		}
+		}*/
 		#endregion
 
 		#region Helpers
