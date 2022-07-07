@@ -89,16 +89,5 @@ namespace SpeedReading.Application.Common.Implementation
 
 			await _context.SaveChangesAsync();
 		}
-
-		private async Task<User> FindUserByLoginAsync(string login)
-		{
-			User? user = await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
-			if (user is null)
-			{
-				throw new UserNotFoundException();
-			}
-
-			return user;
-		}
 	}
 }
