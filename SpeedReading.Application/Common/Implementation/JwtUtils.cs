@@ -18,6 +18,10 @@ namespace SpeedReading.Application.Common.Implementation
 
 		public string GenerateJwtToken(User user)
 		{
+			if (user is null)
+			{
+				throw new ArgumentNullException(nameof(user));
+			}
 			JwtSecurityTokenHandler tokenHandler = new();
 			byte[] key = Encoding.UTF8.GetBytes(_settings.Secret);
 

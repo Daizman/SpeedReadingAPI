@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
 using SpeedReading.Application.Common.Mapping;
+using SpeedReading.Application.Common.Models;
 using SpeedReading.Persistent;
 
 namespace SpeedReading.Tests.WithInMemoryDatabase.Common
@@ -8,6 +10,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 	{
 		public ApplicationDbContext Context;
 		public IMapper Mapper;
+		public IOptions<AppSettings> Settings;
 
 		public QueryTestFixture()
 		{
@@ -18,6 +21,12 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 				conf.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
 			});
 			Mapper = config.CreateMapper();
+
+			Settings = Options.Create<AppSettings>(new()
+			{
+				Secret = "Secret with at least 128 bits",
+				RefreshTokenTTL = 2
+			});
 		}
 
 		public async ValueTask DisposeAsync()
