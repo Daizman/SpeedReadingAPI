@@ -13,7 +13,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 	[Collection("QueryCollection")]
 	public class UserTests
 	{
-		private readonly ApplicationDbContext _context;
+		private readonly IApplicationDbContext _context;
 		private readonly IMapper _mapper;
 
 		public UserTests(QueryTestFixture testFixture) =>

@@ -1,6 +1,4 @@
-﻿using SpeedReading.Application.Dtos;
-
-namespace SpeedReading.Application.Common.Interfaces
+﻿namespace SpeedReading.Application.Common.Interfaces
 {
 	public interface IAuthService
 	{

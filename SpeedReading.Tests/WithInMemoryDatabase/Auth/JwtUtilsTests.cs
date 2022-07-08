@@ -12,7 +12,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 	[Collection("QueryCollection")]
 	public class JwtUtilsTests
 	{
-		private readonly ApplicationDbContext _context;
+		private readonly IApplicationDbContext _context;
 		private readonly IMapper _mapper;
 		private readonly IOptions<AppSettings> _settings;
 
