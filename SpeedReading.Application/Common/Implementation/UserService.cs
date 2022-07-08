@@ -1,17 +1,14 @@
 ﻿using AutoMapper.QueryableExtensions;
+using SpeedReading.Application.Common.Helpers;
 using SpeedReading.Application.Dtos.User;
 using SpeedReading.Domain.User;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace SpeedReading.Application.Common.Implementation
 {
 	public class UserService : BaseService, IUserService
 	{
-		private readonly SHA256 _SHA256;
 
-		public UserService(IApplicationDbContext context, IMapper mapper) : base(context, mapper) 
-			=> _SHA256 = SHA256.Create();
+		public UserService(IApplicationDbContext context, IMapper mapper) : base(context, mapper) { }
 
 		public async Task<UserListDto> GetUsersAsync()
 		{
@@ -37,7 +34,7 @@ namespace SpeedReading.Application.Common.Implementation
 			{
 				Id = Guid.NewGuid(),
 				Login = dto.Login,
-				Password = ComputePasswordHash(dto.Password),
+				Password = AuthHelper.ComputePasswordHash(dto.Password),
 				Email = dto.Email,
 				Avatar = dto.Avatar ?? string.Empty,
 				FirstName = dto.FirstName ?? string.Empty,
@@ -51,17 +48,12 @@ namespace SpeedReading.Application.Common.Implementation
 			return user.Id;
 		}
 
-		public byte[] ComputePasswordHash(string password)
-		{
-			return _SHA256.ComputeHash(Encoding.UTF8.GetBytes(password));
-		}
-
 		public async Task UpdateAsync(UpdateUserDto dto)
 		{
 			User user = await FindUserAsync(dto.Id);
 
 			user.Login = dto.Login ?? user.Login;
-			user.Password = string.IsNullOrWhiteSpace(dto.Password) ? user.Password : ComputePasswordHash(dto.Password);
+			user.Password = string.IsNullOrWhiteSpace(dto.Password) ? user.Password : AuthHelper.ComputePasswordHash(dto.Password);
 			user.Email = dto.Email ?? user.Email;
 			user.Avatar = dto.Avatar ?? user.Avatar;
 			user.FirstName = dto.FirstName ?? user.FirstName;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using SpeedReading.Application.Common.Helpers;
 using SpeedReading.Application.Common.Models;
 using SpeedReading.Domain.Auth;
 using SpeedReading.Domain.User;
@@ -8,11 +9,10 @@ namespace SpeedReading.Application.Common.Implementation
 	public class AuthService : BaseService, IAuthService
 	{
 		private readonly IJwtUtils _jwtUtils;
-		private readonly IUserService _userService;
 		private readonly AppSettings _appSettings;
 
-		public AuthService(IApplicationDbContext context, IMapper mapper, IJwtUtils jwtUtils, IUserService userService, IOptions<AppSettings> appSettings) : base(context, mapper)
-			=> (_jwtUtils, _userService, _appSettings) = (jwtUtils, userService,appSettings.Value);
+		public AuthService(IApplicationDbContext context, IMapper mapper, IJwtUtils jwtUtils, IOptions<AppSettings> appSettings) : base(context, mapper)
+			=> (_jwtUtils, _appSettings) = (jwtUtils, appSettings.Value);
 
 		public async Task<UserAuthResponseDto> Authanticate(UserAuthRequestDto request, string ipAddress)
 		{
@@ -44,7 +44,7 @@ namespace SpeedReading.Application.Common.Implementation
 
 		private bool VerifyPassword(string password, User loggingUser)
 		{
-			byte[] encodedPassword = _userService.ComputePasswordHash(password);
+			byte[] encodedPassword = AuthHelper.ComputePasswordHash(password);
 			byte[] userPassword = loggingUser.Password;
 			int passwordByteArrayLength = encodedPassword.Length;
 			if (passwordByteArrayLength != userPassword.Length)

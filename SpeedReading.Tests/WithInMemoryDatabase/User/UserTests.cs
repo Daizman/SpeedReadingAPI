@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using SpeedReading.Application.Common.Exceptions;
+using SpeedReading.Application.Common.Helpers;
 using SpeedReading.Application.Common.Implementation;
 using SpeedReading.Application.Dtos.User;
 using SpeedReading.Persistent;
@@ -104,7 +105,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 				await _context.Users.FirstOrDefaultAsync(user =>
 					user.Id == result
 					&& user.Login == login
-					&& user.Password == userService.ComputePasswordHash(password)
+					&& user.Password == AuthHelper.ComputePasswordHash(password)
 					&& user.Email == email));
 		}
 		#endregion

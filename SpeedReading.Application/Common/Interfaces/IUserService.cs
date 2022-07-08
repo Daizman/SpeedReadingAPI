@@ -9,6 +9,5 @@ namespace SpeedReading.Application.Common.Interfaces
 		Task<Guid> CreateAsync(CreateUserDto dto);
 		Task UpdateAsync(UpdateUserDto dto);
 		Task DeleteAsync(Guid id);
-		byte[] ComputePasswordHash(string password);
 	}
 }

@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 {
-	public class AuthTests : TestBase
+	[Collection("QueryCollection")]
+	public class AuthTests
 	{
-
+		private readonly IJwtUtils _jwtUtils;
+		private readonly IUserService _userService;
 	}
 }
