@@ -5,7 +5,6 @@ using SpeedReading.Application.Common.Exceptions;
 using SpeedReading.Application.Common.Helpers;
 using SpeedReading.Application.Common.Implementation;
 using SpeedReading.Application.Dtos.User;
-using SpeedReading.Persistent;
 using SpeedReading.Tests.WithInMemoryDatabase.Common;
 
 namespace SpeedReading.Tests.WithInMemoryDatabase.User

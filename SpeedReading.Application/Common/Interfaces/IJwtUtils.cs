@@ -6,7 +6,7 @@ namespace SpeedReading.Application.Common.Interfaces
 	public interface IJwtUtils
 	{
 		string GenerateJwtToken(User user);
-		Task<Guid> ValidateJwtToken(string jwtToken);
-		Task<RefreshToken> GenerateRefreshToken(string ipAddress);
+		Task<Guid> ValidateJwtTokenAsync(string jwtToken);
+		Task<RefreshToken> GenerateRefreshTokenAsync(string ipAddress);
 	}
 }

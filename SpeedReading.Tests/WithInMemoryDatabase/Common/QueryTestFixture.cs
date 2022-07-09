@@ -35,7 +35,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 
 		public async ValueTask DisposeAsync()
 		{
-			await ApplicationContextFactory.Destroy(Context);
+			await ApplicationContextFactory.DestroyAsync(Context);
 		}
 	}
 

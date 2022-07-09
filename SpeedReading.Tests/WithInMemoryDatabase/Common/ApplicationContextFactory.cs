@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SpeedReading.Application.Common.Helpers;
 using SpeedReading.Persistent;
-using System.Text;
 
 namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 {
@@ -13,7 +13,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 			RegistrationDate = DateTime.Today,
 			Email = "email1",
 			Login = "login1",
-			Password = Encoding.UTF8.GetBytes("password1"),
+			Password = AuthHelper.ComputePasswordHash("password1"),
 			Avatar = "base64(dsadsald;)",
 			FirstName = "Alex",
 			LastName = "Tom"
@@ -24,7 +24,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 			RegistrationDate = DateTime.Today,
 			Email = "email2",
 			Login = "login2",
-			Password = Encoding.UTF8.GetBytes("password2"),
+			Password = AuthHelper.ComputePasswordHash("password2"),
 			Avatar = string.Empty,
 			FirstName = string.Empty,
 			LastName = string.Empty
@@ -54,7 +54,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 					RegistrationDate = DateTime.Today,
 					Email = "emailEdit",
 					Login = "loginEdit",
-					Password = Encoding.UTF8.GetBytes("passwordEdit"),
+					Password = AuthHelper.ComputePasswordHash("passwordEdit"),
 					Avatar = string.Empty,
 					FirstName = string.Empty,
 					LastName = string.Empty
@@ -65,7 +65,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 					RegistrationDate = DateTime.Today,
 					Email = "emailDelete",
 					Login = "loginDelete",
-					Password = Encoding.UTF8.GetBytes("passwordDelete"),
+					Password = AuthHelper.ComputePasswordHash("passwordDelete"),
 					Avatar = string.Empty,
 					FirstName = string.Empty,
 					LastName = string.Empty
@@ -76,7 +76,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 			return context;
 		}
 
-		public static async Task Destroy(ApplicationDbContext context)
+		public static async Task DestroyAsync(ApplicationDbContext context)
 		{
 			await context.Database.EnsureDeletedAsync();
 			await context.DisposeAsync();

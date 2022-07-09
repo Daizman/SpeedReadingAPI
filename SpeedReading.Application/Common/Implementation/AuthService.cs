@@ -14,7 +14,7 @@ namespace SpeedReading.Application.Common.Implementation
 		public AuthService(IApplicationDbContext context, IMapper mapper, IJwtUtils jwtUtils, IOptions<AppSettings> appSettings) : base(context, mapper)
 			=> (_jwtUtils, _appSettings) = (jwtUtils, appSettings.Value);
 
-		public async Task<UserAuthResponseDto> Authanticate(UserAuthRequestDto request, string ipAddress)
+		public async Task<UserAuthResponseDto> AuthanticateAsync(UserAuthRequestDto request, string ipAddress)
 		{
 			User? user = await _context.Users.FirstOrDefaultAsync(u => u.Login == request.Login);
 			
@@ -22,16 +22,16 @@ namespace SpeedReading.Application.Common.Implementation
 			{
 				throw new UserNotFoundException();	
 			}
-			if (VerifyPassword(request.Password, user))
+			if (!VerifyPassword(request.Password, user))
 			{
 				throw new IncorrectPasswordException();
 			}
 
 			var token = _jwtUtils.GenerateJwtToken(user);
-			var refreshToken = await _jwtUtils.GenerateRefreshToken(ipAddress);
+			var refreshToken = await _jwtUtils.GenerateRefreshTokenAsync(ipAddress);
 			user.RefreshTokens.Add(refreshToken);
 			RemoveOldRefreshTokens(user);
-			await UpdateUserTokens(user);
+			await UpdateUserTokensAsync(user);
 
 			return new()
 			{
@@ -68,35 +68,31 @@ namespace SpeedReading.Application.Common.Implementation
 				x.CreationDate.AddDays(_appSettings.RefreshTokenTTL) <= DateTime.UtcNow);
 		}
 
-		private async Task UpdateUserTokens(User user)
+		private async Task UpdateUserTokensAsync(User user)
 		{
 			_context.Users.Update(user);
 			await _context.SaveChangesAsync();
 		}
 
-		public async Task<UserAuthResponseDto> RefreshToken(string oldRefreshToken, string ipAddress)
+		public async Task<UserAuthResponseDto> RefreshTokenAsync(string oldRefreshToken, string ipAddress)
 		{
-			User user = await GetUserByRefreshToken(oldRefreshToken);
-			RefreshToken? refreshToken = GetRefreshTokenForUserToken(user, oldRefreshToken);
+			User user = await GetUserByRefreshTokenAsync(oldRefreshToken);
+			RefreshToken refreshToken = GetRefreshTokenForUserToken(user, oldRefreshToken);  // Не может быть null из-за строки выше, упадем с UserNotFound
 
-			if (refreshToken is null)
-			{
-				throw new TokenNotFoundException(user.Login);
-			}
 			if (refreshToken.IsRevoked)
 			{
 				RevokeDescendantRefreshToken(refreshToken, user, ipAddress, $"Attempted reuse of revoked ancestor token: {oldRefreshToken}");
-				await UpdateUserTokens(user);
+				await UpdateUserTokensAsync(user);
 			}
 			if (!refreshToken.IsActive)
 			{
 				throw new InvalidTokenException();
 			}
 
-			RefreshToken newRefreshToken = await RotateRefreshToken(refreshToken, ipAddress);
+			RefreshToken newRefreshToken = await RotateRefreshTokenAsync(refreshToken, ipAddress);
 			user.RefreshTokens.Add(newRefreshToken);
 			RemoveOldRefreshTokens(user);
-			await UpdateUserTokens(user);
+			await UpdateUserTokensAsync(user);
 
 			return new()
 			{
@@ -107,7 +103,7 @@ namespace SpeedReading.Application.Common.Implementation
 			};
 		}
 
-		private async Task<User> GetUserByRefreshToken(string token)
+		private async Task<User> GetUserByRefreshTokenAsync(string token)
 		{
 			User? user = await _context.Users.SingleOrDefaultAsync(u => u.RefreshTokens.Any(t => t.Token == token));
 
@@ -150,25 +146,25 @@ namespace SpeedReading.Application.Common.Implementation
 			token.ReplacedByToken = replaceByToken ?? string.Empty;
 		}
 
-		private async Task<RefreshToken> RotateRefreshToken(RefreshToken token, string ipAddress)
+		private async Task<RefreshToken> RotateRefreshTokenAsync(RefreshToken token, string ipAddress)
 		{
-			RefreshToken newRefreshToken = await _jwtUtils.GenerateRefreshToken(ipAddress);
+			RefreshToken newRefreshToken = await _jwtUtils.GenerateRefreshTokenAsync(ipAddress);
 			RevokeRefreshToken(token, ipAddress, "Replaced by new token", newRefreshToken.Token);
 			return newRefreshToken;
 		}
 
-		public async Task RevokeToken(string token, string ipAddress)
+		public async Task RevokeTokenAsync(string token, string ipAddress)
 		{
-			User user = await GetUserByRefreshToken(token);
-			RefreshToken? refreshToken = GetRefreshTokenForUserToken(user, token);
+			User user = await GetUserByRefreshTokenAsync(token);
+			RefreshToken refreshToken = GetRefreshTokenForUserToken(user, token);  // Не может быть null из-за строки выше, упадем с UserNotFound
 
-			if (refreshToken is null || !refreshToken.IsActive)
+			if (!refreshToken.IsActive)
 			{
 				throw new InvalidTokenException();
 			}
 
 			RevokeRefreshToken(refreshToken, ipAddress, "Revoked without replacement");
-			await UpdateUserTokens(user);
+			await UpdateUserTokensAsync(user);
 		}
 	}
 }

@@ -37,18 +37,18 @@ namespace SpeedReading.Application.Common.Implementation
 			return tokenHandler.WriteToken(securityToken);
 		}
 
-		public async Task<RefreshToken> GenerateRefreshToken(string ipAddress)
+		public async Task<RefreshToken> GenerateRefreshTokenAsync(string ipAddress)
 		{
 			return new()
 			{
-				Token = await GetUniqueToken(),
+				Token = await GetUniqueTokenAsync(),
 				ExpirationDate = DateTime.UtcNow.AddDays(7),
 				CreationDate = DateTime.UtcNow,
 				Ip = ipAddress
 			};
 		}
 
-		private async Task<string> GetUniqueToken()
+		private async Task<string> GetUniqueTokenAsync()
 		{
 			var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
 
@@ -56,12 +56,12 @@ namespace SpeedReading.Application.Common.Implementation
 			
 			if(tokenExists)
 			{
-				return await GetUniqueToken();
+				return await GetUniqueTokenAsync();
 			}
 			return token;
 		}
 			
-		public async Task<Guid> ValidateJwtToken(string jwtToken)
+		public async Task<Guid> ValidateJwtTokenAsync(string jwtToken)
 		{
 			if (string.IsNullOrWhiteSpace(jwtToken))
 			{
