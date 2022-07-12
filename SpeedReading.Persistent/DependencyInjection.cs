@@ -1,18 +1,17 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SpeedReading.Application.Common.Implementation;
 using SpeedReading.Application.Common.Interfaces;
+using SpeedReading.Application.Common.Models;
 
 namespace SpeedReading.Persistent
 {
 	public static class DependencyInjection
 	{
-		public static IServiceCollection AddPersistent(this IServiceCollection services, IConfiguration configuration)
+		public static IServiceCollection AddPersistent(this IServiceCollection services, PostgreSqlDbSettings settings)
 		{
-			string connection = configuration.GetConnectionString("SpeedReadingAPI");
 			services.AddDbContext<ApplicationDbContext>(options =>
 			{
-				options.UseNpgsql(connection, npgsqlOptions =>
+				options.UseNpgsql(settings.ConnectionString, npgsqlOptions =>
 				{
 					npgsqlOptions.MigrationsAssembly("SpeedReading.Api");
 				});
