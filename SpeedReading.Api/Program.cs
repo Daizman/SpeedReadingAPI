@@ -19,7 +19,10 @@ builder.Services.AddCors(config =>
 		policy.AllowAnyOrigin();
 	});
 });
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => 
+{
+	options.SuppressAsyncSuffixInActionNames = false;
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => 
 {

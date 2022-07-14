@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SpeedReading.Application\SpeedReading.Application.csproj" />
     <ProjectReference Include="..\SpeedReading.Persistent\SpeedReading.Persistent.csproj" />
   </ItemGroup>
