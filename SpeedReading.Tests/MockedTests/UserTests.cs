@@ -1,7 +1,6 @@
 using SpeedReading.Application.Common.Exceptions;
 using FluentAssertions;
 using SpeedReading.Application.Dtos.User;
-using SpeedReading.Domain.User;
 
 namespace SpeedReading.Tests.MockedTests
 {
@@ -12,7 +11,7 @@ namespace SpeedReading.Tests.MockedTests
 		// Подойдут больше для API
 		#region UserCRUD
 		[Fact]
-		public async Task GetUserAsync_WithUnexistingUser_ThrowsUserNotFound()
+		public async System.Threading.Tasks.Task GetUserAsync_WithUnexistingUser_ThrowsUserNotFound()
 		{
 			// Arrange
 			_userServiceStub.Setup(repo => repo.GetUserAsync(It.IsAny<Guid>()))
@@ -27,7 +26,7 @@ namespace SpeedReading.Tests.MockedTests
 		}
 
 		[Fact]
-		public async Task GetUserAsync_WithExistingUser_ReturnsExpectingUser()
+		public async System.Threading.Tasks.Task GetUserAsync_WithExistingUser_ReturnsExpectingUser()
 		{
 			// Arrange
 			var expectedUser = CreateRandomUserDto();
@@ -43,7 +42,7 @@ namespace SpeedReading.Tests.MockedTests
 		}
 
 		[Fact]
-		public async Task GetUsersAsync_WithExistingUsers_ReturnsAllUsers()
+		public async System.Threading.Tasks.Task GetUsersAsync_WithExistingUsers_ReturnsAllUsers()
 		{
 			// Arrange
 			var expectedUsers = new UserListDto(new List<UserLookupDto>() { CreateRandomUserLookupDto(), CreateRandomUserLookupDto(), CreateRandomUserLookupDto() });
@@ -59,43 +58,43 @@ namespace SpeedReading.Tests.MockedTests
 		}
 
 		/*[Fact]
-		public async Task CreateUserAsync_WithUserToCreate_ReturnsCreatedUser()
+		public async System.Threading.Tasks.Task CreateUserAsync_WithUserToCreate_ReturnsCreatedUser()
 		{
 			
 		}
 
 		[Fact]
-		public async Task UpdateUserAsync_WithUnexistingUser_ReturnsNotFound()
+		public async System.Threading.Tasks.Task UpdateUserAsync_WithUnexistingUser_ReturnsNotFound()
 		{
 			
 		}
 
 		[Fact]
-		public async Task UpdateUserAsync_WithOtherUser_ReturnsNotFound()
+		public async System.Threading.Tasks.Task UpdateUserAsync_WithOtherUser_ReturnsNotFound()
 		{
 			
 		}
 
 		[Fact]
-		public async Task UpdateUserAsync_WithCurrentUser_ReturnsNoContent()
+		public async System.Threading.Tasks.Task UpdateUserAsync_WithCurrentUser_ReturnsNoContent()
 		{
 			
 		}
 
 		[Fact]
-		public async Task DeleteUserAsync_WithUnexistingUser_ReturnsNotFound()
+		public async System.Threading.Tasks.Task DeleteUserAsync_WithUnexistingUser_ReturnsNotFound()
 		{
 			
 		}
 
 		[Fact]
-		public async Task DeleteUserAsync_WithOtherUser_ReturnsNotFound()
+		public async System.Threading.Tasks.Task DeleteUserAsync_WithOtherUser_ReturnsNotFound()
 		{
 			
 		}
 
 		[Fact]
-		public async Task DeleteUserAsync_WithCurrentUser_ReturnsNoContent()
+		public async System.Threading.Tasks.Task DeleteUserAsync_WithCurrentUser_ReturnsNoContent()
 		{
 			
 		}*/

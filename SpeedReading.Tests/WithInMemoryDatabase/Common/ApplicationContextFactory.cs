@@ -76,7 +76,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 			return context;
 		}
 
-		public static async Task DestroyAsync(ApplicationDbContext context)
+		public static async System.Threading.Tasks.Task DestroyAsync(ApplicationDbContext context)
 		{
 			await context.Database.EnsureDeletedAsync();
 			await context.DisposeAsync();

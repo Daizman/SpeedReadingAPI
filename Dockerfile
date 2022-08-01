@@ -12,9 +12,12 @@ COPY ["SpeedReading.Domain/SpeedReading.Domain.csproj", "SpeedReading.Domain/"]
 RUN dotnet restore "SpeedReading.Api/SpeedReading.Api.csproj"
 COPY . .
 WORKDIR "/src/SpeedReading.Api"
+RUN dotnet build "SpeedReading.Api.csproj" -c Release -o /app/build
+
+FROM build AS publish
 RUN dotnet publish "SpeedReading.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "SpeedReading.Api.dll"]

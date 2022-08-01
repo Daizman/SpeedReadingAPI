@@ -24,7 +24,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 			(_context, _mapper, _jwtUtils, _settings) = (testFixture.Context, testFixture.Mapper, testFixture.JwtUtils, testFixture.Settings);
 
 		[Fact]
-		public async Task AuthanticateAsync_WithIncorrectLogin_ThrowsUserNotFound()
+		public async System.Threading.Tasks.Task AuthanticateAsync_WithIncorrectLogin_ThrowsUserNotFound()
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
@@ -38,7 +38,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async Task AuthanticateAsync_WithIncorrectPassword_ThrowsIncorrectPassword()
+		public async System.Threading.Tasks.Task AuthanticateAsync_WithIncorrectPassword_ThrowsIncorrectPassword()
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
@@ -52,7 +52,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async Task AuthanticateAsync_WithCorrectRequest_ReturnsUserAuthResponse()
+		public async System.Threading.Tasks.Task AuthanticateAsync_WithCorrectRequest_ReturnsUserAuthResponse()
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
@@ -67,7 +67,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async Task RevokeTokenAsync_WithIncorrectToken_ThrowsUserNotFound()
+		public async System.Threading.Tasks.Task RevokeTokenAsync_WithIncorrectToken_ThrowsUserNotFound()
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
@@ -81,7 +81,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async Task RevokeTokenAsync_WithNotActiveToken_ThrowsInvalidToken()
+		public async System.Threading.Tasks.Task RevokeTokenAsync_WithNotActiveToken_ThrowsInvalidToken()
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
@@ -96,7 +96,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async Task RevokeTokenAsync_WithCorrectToken_ReturnsVoid()
+		public async System.Threading.Tasks.Task RevokeTokenAsync_WithCorrectToken_ReturnsVoid()
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
@@ -114,7 +114,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async Task RefreshTokenAsync_WithIncorrectToken_ThrowsUserNotFound()
+		public async System.Threading.Tasks.Task RefreshTokenAsync_WithIncorrectToken_ThrowsUserNotFound()
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
@@ -128,7 +128,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async Task RefreshTokenAsync_WithRevokedToken_ThrowsInvalidToken()
+		public async System.Threading.Tasks.Task RefreshTokenAsync_WithRevokedToken_ThrowsInvalidToken()
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
@@ -143,7 +143,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async Task RefreshTokenAsync_WithCorrectToken_ReturnsUserAuthResponse()
+		public async System.Threading.Tasks.Task RefreshTokenAsync_WithCorrectToken_ReturnsUserAuthResponse()
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);

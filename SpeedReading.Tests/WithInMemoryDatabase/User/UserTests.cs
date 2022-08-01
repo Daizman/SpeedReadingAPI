@@ -20,7 +20,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 
 		#region ReadOperations
 		[Fact]
-		public async Task GetUserAsync_WithUnexistingUser_ThrowsUserNotFound()
+		public async System.Threading.Tasks.Task GetUserAsync_WithUnexistingUser_ThrowsUserNotFound()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);
@@ -31,7 +31,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 		}
 
 		[Fact]
-		public async Task GetUserAsync_WithExistingUser_ReturnsExpectingUser()
+		public async System.Threading.Tasks.Task GetUserAsync_WithExistingUser_ReturnsExpectingUser()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);
@@ -43,7 +43,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 		}
 
 		[Fact]
-		public async Task GetUsersAsync_WithExistingUsers_ReturnsAllUsers()
+		public async System.Threading.Tasks.Task GetUsersAsync_WithExistingUsers_ReturnsAllUsers()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);
@@ -58,7 +58,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 
 		#region CreateOperations
 		[Fact]
-		public async Task CreateUserAsync_WithExistingUserLogin_ThrowsUserAlreadyExists()
+		public async System.Threading.Tasks.Task CreateUserAsync_WithExistingUserLogin_ThrowsUserAlreadyExists()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);
@@ -74,7 +74,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 		}
 
 		[Fact]
-		public async Task CreateUserAsync_WithExistingUserEmail_ThrowsUserAlreadyExists()
+		public async System.Threading.Tasks.Task CreateUserAsync_WithExistingUserEmail_ThrowsUserAlreadyExists()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);
@@ -90,7 +90,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 		}
 
 		[Fact]
-		public async Task CreateUserAsync_WithCreateUserDto_ReturnsCreatedUserGuid()
+		public async System.Threading.Tasks.Task CreateUserAsync_WithCreateUserDto_ReturnsCreatedUserGuid()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);
@@ -111,7 +111,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 
 		#region UpdateOperations
 		[Fact]
-		public async Task UpdateUserAsync_WithUnexistingUser_ThrowsUserNotFound()
+		public async System.Threading.Tasks.Task UpdateUserAsync_WithUnexistingUser_ThrowsUserNotFound()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);
@@ -125,7 +125,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 		}
 
 		[Fact]
-		public async Task UpdateUserAsync_WithExistingUser_ReturnsVoid()
+		public async System.Threading.Tasks.Task UpdateUserAsync_WithExistingUser_ReturnsVoid()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);
@@ -142,7 +142,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 
 		#region DeleteOperations
 		[Fact]
-		public async Task DeleteUserAsync_WithUnexistingUser_ThrowsUserNotFound()
+		public async System.Threading.Tasks.Task DeleteUserAsync_WithUnexistingUser_ThrowsUserNotFound()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);
@@ -155,7 +155,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 		}
 
 		[Fact]
-		public async Task DeleteUserAsync_WithExistingUser_ReturnsVoid()
+		public async System.Threading.Tasks.Task DeleteUserAsync_WithExistingUser_ReturnsVoid()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);

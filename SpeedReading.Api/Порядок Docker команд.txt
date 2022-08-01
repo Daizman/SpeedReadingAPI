@@ -1,0 +1,24 @@
+﻿Dcokerfile должен быть в корне солюшена
+
+docker build -t speedreadingapi:v1 .  // собрать образ с указанным именем и тегом через :
+docker network create speedreading  // создать сеть, чтобы контейнеры могли общаться между собой
+docker volume create pgdata  // создать хранилище, чтобы при удалении контейнеров ничего не пропадало
+
+// запустить контейнер с postgres с определенным volume
+docker run -d --rm --name postgresspeedreading --network=speedreading -p 5432:27017 -v pgdata:/var/lib/postgresql/data -e PGDATA=/var/lib/postgresql/data/pgdata -e POSTGRES_PASSWORD=post postgres
+
+// запуск контейнера приложения
+docker run -d --rm --name speedreadingapi --network=speedreading -p 8080:80 -e PostgreSqlDbSettings:Host=postgresspeedreading -e PostgreSqlDbSettings:Password=post  speedreadingapi:v1
+
+// Публикация
+docker login  // логин
+docker tag speedreadingapi:v1 daizman/speedreadingapi:v1  // меняем тег образа для публикации (правило именования с ником)
+docker push daizman/speedreadingapi:v1  // пушим образ на хаб
+
+// Получение
+docker pull daizman/speedreadingapi:v1
+
+/* Полезные команды */
+docker network ls  // список сетей
+docker ps  // список поднятых контейнеров
+docker stop [image_name]  // остановить контейнер

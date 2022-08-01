@@ -46,7 +46,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 
 		#region ValidateToken
 		[Fact]
-		public async Task ValidateJwtTokenAsync_WithEmptyJwtToken_ReturnsEmptyGuid()
+		public async System.Threading.Tasks.Task ValidateJwtTokenAsync_WithEmptyJwtToken_ReturnsEmptyGuid()
 		{
 			// Arrange
 			var jwtUtils = new JwtUtils(_context, _mapper, _settings);
@@ -57,7 +57,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async Task ValidateJwtTokenAsync_WithIncorrectJwtToken_ReturnsEmptyGuid()
+		public async System.Threading.Tasks.Task ValidateJwtTokenAsync_WithIncorrectJwtToken_ReturnsEmptyGuid()
 		{
 			// Arrange
 			var jwtUtils = new JwtUtils(_context, _mapper, _settings);
@@ -68,7 +68,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async Task ValidateJwtTokenAsync_WithCorrectJwtToken_ReturnsUserId()
+		public async System.Threading.Tasks.Task ValidateJwtTokenAsync_WithCorrectJwtToken_ReturnsUserId()
 		{
 			// Arrange
 			var jwtUtils = new JwtUtils(_context, _mapper, _settings);
@@ -83,7 +83,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 
 		#region GenerateRefreshToken
 		[Fact]
-		public async Task GenerateRefreshTokenAsync_WithAnyIpAddress_ReturnsRefreshToken()
+		public async System.Threading.Tasks.Task GenerateRefreshTokenAsync_WithAnyIpAddress_ReturnsRefreshToken()
 		{
 			// Arrange
 			var jwtUtils = new JwtUtils(_context, _mapper, _settings);
