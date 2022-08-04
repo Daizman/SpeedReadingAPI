@@ -14,7 +14,7 @@ namespace SpeedReading.Application.Common.Implementation
 		public AuthService(IApplicationDbContext context, IMapper mapper, IJwtUtils jwtUtils, IOptions<AppSettings> appSettings) : base(context, mapper)
 			=> (_jwtUtils, _appSettings) = (jwtUtils, appSettings.Value);
 
-		public async Task<UserAuthResponseDto> AuthanticateAsync(UserAuthRequestDto request, string ipAddress)
+		public async Task<UserAuthResponseDto> AuthenticateAsync(UserAuthRequestDto request, string ipAddress)
 		{
 			User? user = await _context.Users.FirstOrDefaultAsync(u => u.Login == request.Login);
 			

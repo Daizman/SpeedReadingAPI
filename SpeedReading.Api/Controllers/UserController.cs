@@ -2,7 +2,6 @@
 using SpeedReading.Api.Attributes.Auth;
 using SpeedReading.Application.Common.Interfaces;
 using SpeedReading.Application.Dtos.User;
-using SpeedReading.Domain.Auth;
 
 namespace SpeedReading.Api.Controllers
 {
@@ -19,7 +18,7 @@ namespace SpeedReading.Api.Controllers
 		/// </summary>
 		/// <remarks>
 		/// Sample request:
-		/// GET /user/get/98BC106D-91B0-48FC-9091-1806B9ED6442
+		/// GET /user/98BC106D-91B0-48FC-9091-1806B9ED6442
 		/// </remarks>
 		/// <param name="userId">User Guid</param>
 		/// <returns>Returns UserDto</returns>
@@ -38,7 +37,7 @@ namespace SpeedReading.Api.Controllers
 		/// </summary>
 		/// <remarks>
 		/// Sample request:
-		/// GET /user/get
+		/// GET /user
 		/// </remarks>
 		/// <returns>Returns UserListDto</returns>
 		/// <response code="200">Success</response>
@@ -57,7 +56,7 @@ namespace SpeedReading.Api.Controllers
 		/// </summary>
 		/// <remarks>
 		/// Sample request:
-		/// POST /user/createAsync
+		/// POST /user
 		/// {
 		///		login: "login1",
 		///		password: "password1",
@@ -84,7 +83,7 @@ namespace SpeedReading.Api.Controllers
 		/// </summary>
 		/// <remarks>
 		/// Sample request:
-		/// PUT /user/updateAsync
+		/// PUT /user
 		/// {
 		///		id: "B1D7D546-788C-4D3E-9057-C4AFE9C9A8C3",
 		///		login: "login1" | null,
@@ -113,7 +112,7 @@ namespace SpeedReading.Api.Controllers
 		/// </summary>
 		/// <remarks>
 		/// Sample request:
-		/// DELETE /user/deleteAsync/2EF66775-6564-4F8F-9153-4E475E68A716
+		/// DELETE /user/2EF66775-6564-4F8F-9153-4E475E68A716
 		/// </remarks>
 		/// <param name="userId">User Guid</param>
 		/// <returns>NoContent</returns>
@@ -126,26 +125,6 @@ namespace SpeedReading.Api.Controllers
 		{
 			await _service.DeleteAsync(userId);
 			return NoContent();
-		}
-
-		/// <summary>
-		/// Gets user refresh tokens
-		/// </summary>
-		/// <remarks>
-		/// Sample request:
-		/// GET /user/getRefreshTokensAsync/D14BF7D0-4442-4276-AA97-C5941CCC17D5
-		/// </remarks>
-		/// <param name="userId">User Guid</param>
-		/// <returns>RefreshToken List</returns>
-		/// <response code="200">Success</response>
-		/// <response code="401">User unauthorized</response>
-		[HttpGet("{userId}")]
-		[ProducesResponseType(StatusCodes.Status200OK)]
-		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-		public async Task<ActionResult<IEnumerable<RefreshToken>>> GetRefreshTokensAsync(Guid userId)
-		{
-			var user = await _service.GetUserAsync(userId);
-			return Ok(user.RefreshTokens);
 		}
 	}
 }

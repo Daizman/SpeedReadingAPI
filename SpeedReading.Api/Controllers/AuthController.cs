@@ -19,7 +19,7 @@ namespace SpeedReading.Api.Controllers
 		/// </summary>
 		/// <remarks>
 		/// Sample request:
-		/// POST /auth/authanticateAsync
+		/// POST /auth
 		/// {
 		///		login: "login1",
 		///		password: "password1"
@@ -31,9 +31,9 @@ namespace SpeedReading.Api.Controllers
 		[AllowAnonymous]
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		public async Task<ActionResult<UserAuthResponseDto>> AuthanticateAsync(UserAuthRequestDto request)
+		public async Task<ActionResult<UserAuthResponseDto>> AuthenticateAsync(UserAuthRequestDto request)
 		{
-			var response = await _service.AuthanticateAsync(request, GetIpAddress());
+			var response = await _service.AuthenticateAsync(request, GetIpAddress());
 			SetTokenCookie(response.RefreshToken);
 			return Ok(response);
 		}
@@ -54,6 +54,7 @@ namespace SpeedReading.Api.Controllers
 				HttpOnly = true,
 				Expires = DateTime.Now.AddDays(7)
 			};
+			Response.Cookies.Append("refreshToken", token, options);
 		}
 
 		/// <summary>
@@ -61,13 +62,13 @@ namespace SpeedReading.Api.Controllers
 		/// </summary>
 		/// <remarks>
 		/// Sample request:
-		/// POST /auth/refreshTokenAsync
+		/// POST /auth
 		/// </remarks>
 		/// <returns>Returns UserAuthResponseDto</returns>
 		/// <response code="200">Success</response>
 		/// <response code="400">Token not found</response>
 		[AllowAnonymous]
-		[HttpPost]
+		[HttpGet]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<UserAuthResponseDto>> RefreshTokenAsync()
@@ -80,36 +81,6 @@ namespace SpeedReading.Api.Controllers
 			var response = await _service.RefreshTokenAsync(refreshToken, GetIpAddress());
 			SetTokenCookie(response.RefreshToken);
 			return Ok(response);
-		}
-
-		/// <summary>
-		/// Revoke refresh token
-		/// </summary>
-		/// <remarks>
-		/// Sample request:
-		/// POST /auth/revokeTokenAsync
-		/// {
-		///		token: "tokenString"
-		/// }
-		/// </remarks>
-		/// <param name="request">RevokeTokenRequestDto object</param>
-		/// <returns>object { message }</returns>
-		/// <response code="200">Success</response>
-		/// <response code="400">Token not found</response>
-		[HttpPost]
-		[ProducesResponseType(StatusCodes.Status200OK)]
-		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<IActionResult> RevokeTokenAsync(RevokeTokenRequestDto request)
-		{
-			var token = request.Token ?? Request.Cookies["refreshToken"];
-
-			if (string.IsNullOrEmpty(token))
-			{
-				return BadRequest(new { message = "Token is required" });
-			}
-
-			await _service.RevokeTokenAsync(token, GetIpAddress());
-			return Ok(new { message = "Token revoked" });
 		}
 	}
 }

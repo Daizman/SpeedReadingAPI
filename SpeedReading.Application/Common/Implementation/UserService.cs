@@ -39,7 +39,8 @@ namespace SpeedReading.Application.Common.Implementation
 				Avatar = dto.Avatar ?? string.Empty,
 				FirstName = dto.FirstName ?? string.Empty,
 				LastName = dto.LastName ?? string.Empty,
-				RegistrationDate = DateTime.UtcNow
+				RegistrationDate = DateTime.UtcNow,
+				Broadcasting = dto.Broadcasting
 			};
 
 			await _context.Users.AddAsync(user);
@@ -58,6 +59,7 @@ namespace SpeedReading.Application.Common.Implementation
 			user.Avatar = dto.Avatar ?? user.Avatar;
 			user.FirstName = dto.FirstName ?? user.FirstName;
 			user.LastName = dto.LastName ?? user.LastName;
+			user.Broadcasting = dto.Broadcasting ?? user.Broadcasting;
 			
 			await _context.SaveChangesAsync();
 		}

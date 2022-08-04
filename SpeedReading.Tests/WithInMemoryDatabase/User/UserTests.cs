@@ -69,7 +69,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 			// Assert
 			await Assert.ThrowsAsync<UserAlreadyExistsException>(async () =>
 			{
-				await userService.CreateAsync(new CreateUserDto(login, password, email, null, null, null));
+				await userService.CreateAsync(new CreateUserDto(login, password, email, null, null, null, false));
 			});
 		}
 
@@ -85,7 +85,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 			// Assert
 			await Assert.ThrowsAsync<UserAlreadyExistsException>(async () =>
 			{
-				await userService.CreateAsync(new CreateUserDto(login, password, email, null, null, null));
+				await userService.CreateAsync(new CreateUserDto(login, password, email, null, null, null, false));
 			});
 		}
 
@@ -98,7 +98,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 			string password = "createUserPassword";
 			string email = "createUserEmail@mail.com";
 			// Act
-			var result = await userService.CreateAsync(new CreateUserDto(login, password, email, null, null, null));
+			var result = await userService.CreateAsync(new CreateUserDto(login, password, email, null, null, null, false));
 			// Assert
 			Assert.NotNull(
 				await _context.Users.FirstOrDefaultAsync(user =>
@@ -120,7 +120,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 			// Assert
 			await Assert.ThrowsAsync<UserNotFoundException>(async () =>
 			{
-				await userService.UpdateAsync(new UpdateUserDto(Guid.NewGuid(), newLogin, null, null, null, null, null));
+				await userService.UpdateAsync(new UpdateUserDto(Guid.NewGuid(), newLogin, null, null, null, null, null, null));
 			});
 		}
 
@@ -131,7 +131,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 			var userService = new UserService(_context, _mapper);
 			string newLogin = "newLoginNewLogin";
 			// Act
-			await userService.UpdateAsync(new UpdateUserDto(ApplicationContextFactory.UserIdForEdit, newLogin, null, null, null, null, null));
+			await userService.UpdateAsync(new UpdateUserDto(ApplicationContextFactory.UserIdForEdit, newLogin, null, null, null, null, null, null));
 			// Assert
 			Assert.NotNull(
 				await _context.Users.FirstOrDefaultAsync(user =>

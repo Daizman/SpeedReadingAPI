@@ -15,6 +15,7 @@ namespace SpeedReading.Domain.User
 		public string FirstName { get; set; } = string.Empty;
 		public string LastName { get; set; } = string.Empty;
 		public DateTime RegistrationDate { get; set; }
+		public bool Broadcasting { get; set; }
 
 		[JsonIgnore]
 		public List<RefreshToken> RefreshTokens { get; set; }

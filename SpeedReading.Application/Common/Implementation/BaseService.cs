@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using SpeedReading.Application.Common.Interfaces;
-
-namespace SpeedReading.Application.Common.Implementation
+﻿namespace SpeedReading.Application.Common.Implementation
 {
 	public abstract class BaseService
 	{

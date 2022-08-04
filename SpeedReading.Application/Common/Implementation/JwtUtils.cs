@@ -28,7 +28,7 @@ namespace SpeedReading.Application.Common.Implementation
 			SecurityTokenDescriptor descriptor = new()
 			{
 				Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
-				Expires = DateTime.UtcNow.AddDays(7),
+				Expires = DateTime.UtcNow.AddMinutes(5),
 				SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
 			};
 
@@ -61,7 +61,7 @@ namespace SpeedReading.Application.Common.Implementation
 			return token;
 		}
 			
-		public async Task<Guid> ValidateJwtTokenAsync(string jwtToken)
+		public async Task<Guid> ValidateJwtTokenAsync(string? jwtToken)
 		{
 			if (string.IsNullOrWhiteSpace(jwtToken))
 			{

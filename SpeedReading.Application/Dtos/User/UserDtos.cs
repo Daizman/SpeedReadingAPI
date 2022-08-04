@@ -9,7 +9,8 @@ namespace SpeedReading.Application.Dtos.User
 		string Email,
 		string? Avatar,
 		string? FirstName,
-		string? LastName);
+		string? LastName,
+		bool Broadcasting);
 
 	public record UpdateUserDto(
 		Guid Id,
@@ -18,7 +19,8 @@ namespace SpeedReading.Application.Dtos.User
 		string? Email,
 		string? Avatar,
 		string? FirstName,
-		string? LastName);
+		string? LastName,
+		bool? Broadcasting);
 
 	public record UserDto : IMapWith<Domain.User.User>
 	{
@@ -29,6 +31,8 @@ namespace SpeedReading.Application.Dtos.User
 		public string FirstName { get; init; }
 		public string LastName { get; init; }
 
+		public bool Broadcasting { get; set; }
+
 		public void Mapping(Profile profile)
 		{
 			profile.CreateMap<Domain.User.User, UserDto>()
@@ -38,6 +42,7 @@ namespace SpeedReading.Application.Dtos.User
 				.ForMember(userDto => userDto.Avatar, opt => opt.MapFrom(user => user.Avatar))
 				.ForMember(userDto => userDto.FirstName, opt => opt.MapFrom(user => user.FirstName))
 				.ForMember(userDto => userDto.LastName, opt => opt.MapFrom(user => user.LastName))
+				.ForMember(userDto => userDto.Broadcasting, opt => opt.MapFrom(user => user.Broadcasting))
 				.ForMember(userDto => userDto.RefreshTokens, opt => opt.MapFrom(user => user.RefreshTokens));
 		}
 

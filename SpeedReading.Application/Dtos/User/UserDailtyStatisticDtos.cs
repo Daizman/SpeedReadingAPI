@@ -1,14 +1,15 @@
-﻿using SpeedReading.Domain.Task;
+﻿using SpeedReading.Domain.Task.Enums;
 
 namespace SpeedReading.Application.Dtos.User
 {
+	public record UserDailyTaskStatisticDto(Guid TaskId, string Name, string Type, int CompleteCount, TimeSpan? Time, TimeSpan? RecordTime);
+
 	public record UserDailyStatisticDto(
 		Guid Id,
 		Guid UserId,
 		DateTime Date,
-		List<TrainingTask> CompletedTasks,
-		List<TrainingTask> AdditionalTasks,
-		int CompletedTasksCount,
-		int PlanedTaskPercent,
-		int AdditionalTasksCount);
+		List<UserDailyTaskStatisticDto> CompletedTasks,
+		List<UserDailyTaskStatisticDto> AdditionalTasks);
+
+	public record AddUserTaskDailyStatisticDto(Guid UserId, Guid TaskId, TaskName TaskName, DateTime Date, TimeSpan? Time);
 }

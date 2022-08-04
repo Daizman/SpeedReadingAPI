@@ -14,7 +14,7 @@ namespace SpeedReading.Persistent
 		public DbSet<TaskGeneralName> TasksGeneralNames { get; set; }
 		public DbSet<ColourNaming> ColourNamings { get; set; }
 		public DbSet<LetterPyramids> LetterPyramids { get; set; }
-		public DbSet<PictureMemorize> PicutreMemorizes { get; set; }
+		public DbSet<PictureMemorize> PictureMemorizes { get; set; }
 		public DbSet<PicturePair> PicturePairs { get; set; }
 		public DbSet<Schulte> Schultes { get; set; }
 		public DbSet<TaskWithText> TasksWithTexts { get; set; }

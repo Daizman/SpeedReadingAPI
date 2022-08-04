@@ -13,7 +13,7 @@ namespace SpeedReading.Application.Common.Interfaces
 		DbSet<TaskGeneralName> TasksGeneralNames { get; set; }
 		DbSet<ColourNaming> ColourNamings { get; set; }
 		DbSet<LetterPyramids> LetterPyramids { get; set; }
-		DbSet<PictureMemorize> PicutreMemorizes { get; set; }
+		DbSet<PictureMemorize> PictureMemorizes { get; set; }
 		DbSet<PicturePair> PicturePairs { get; set; }
 		DbSet<Schulte> Schultes { get; set; }
 		DbSet<TaskWithText> TasksWithTexts { get; set; }

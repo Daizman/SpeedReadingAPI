@@ -16,7 +16,8 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 			Password = AuthHelper.ComputePasswordHash("password1"),
 			Avatar = "base64(dsadsald;)",
 			FirstName = "Alex",
-			LastName = "Tom"
+			LastName = "Tom",
+			Broadcasting = false
 		};
 		public readonly static Domain.User.User UserB = new()
 		{
@@ -27,7 +28,8 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 			Password = AuthHelper.ComputePasswordHash("password2"),
 			Avatar = string.Empty,
 			FirstName = string.Empty,
-			LastName = string.Empty
+			LastName = string.Empty,
+			Broadcasting = false
 		};
 
 		public readonly static Guid UserIdForEdit = Guid.NewGuid();
@@ -57,7 +59,8 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 					Password = AuthHelper.ComputePasswordHash("passwordEdit"),
 					Avatar = string.Empty,
 					FirstName = string.Empty,
-					LastName = string.Empty
+					LastName = string.Empty,
+					Broadcasting = true
 				},
 				new Domain.User.User
 				{
@@ -68,7 +71,8 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Common
 					Password = AuthHelper.ComputePasswordHash("passwordDelete"),
 					Avatar = string.Empty,
 					FirstName = string.Empty,
-					LastName = string.Empty
+					LastName = string.Empty,
+					Broadcasting = true
 				});
 			#endregion
 

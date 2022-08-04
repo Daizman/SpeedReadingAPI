@@ -7,6 +7,6 @@ namespace SpeedReading.Api.Controllers
 	[Authorize]
 	[ApiController]
 	[Produces("application/json")]
-	[Route("api/[controller]/[action]")]
+	[Route("api/[controller]")]
 	public class CommonController : ControllerBase { }
 }

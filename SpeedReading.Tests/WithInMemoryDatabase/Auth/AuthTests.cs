@@ -33,7 +33,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 			// Assert
 			await Assert.ThrowsAsync<UserNotFoundException>(async () =>
 			{
-				await authService.AuthanticateAsync(authUser, _ipAddress);
+				await authService.AuthenticateAsync(authUser, _ipAddress);
 			});
 		}
 
@@ -47,7 +47,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 			// Assert
 			await Assert.ThrowsAsync<IncorrectPasswordException>(async () =>
 			{
-				await authService.AuthanticateAsync(authUser, _ipAddress);
+				await authService.AuthenticateAsync(authUser, _ipAddress);
 			});
 		}
 
@@ -58,7 +58,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
 			var authUser = new UserAuthRequestDto(ApplicationContextFactory.UserA.Login, "password1");
 			// Act
-			var result = await authService.AuthanticateAsync(authUser, _ipAddress);
+			var result = await authService.AuthenticateAsync(authUser, _ipAddress);
 			// Assert
 			result.Should().BeOfType<UserAuthResponseDto>();
 			result.Id.Should().Be(ApplicationContextFactory.UserA.Id);
@@ -85,7 +85,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
-			var token = (await authService.AuthanticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
+			var token = (await authService.AuthenticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
 			await authService.RevokeTokenAsync(token, _ipAddress);
 			// Act
 			// Assert
@@ -100,7 +100,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
-			var token = (await authService.AuthanticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
+			var token = (await authService.AuthenticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
 			// Act
 			await authService.RevokeTokenAsync(token, _ipAddress);
 			var refreshToken = (await _context.Users.FirstAsync(u => u.Id == ApplicationContextFactory.UserA.Id)).RefreshTokens.FirstOrDefault(rt => rt.Token == token);
@@ -132,7 +132,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
-			var token = (await authService.AuthanticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
+			var token = (await authService.AuthenticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
 			await authService.RevokeTokenAsync(token, _ipAddress);
 			// Act
 			// Assert
@@ -147,7 +147,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		{
 			// Arrange
 			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
-			var token = (await authService.AuthanticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
+			var token = (await authService.AuthenticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
 			// Act
 			var result = await authService.RefreshTokenAsync(token, _ipAddress);
 			// Assert

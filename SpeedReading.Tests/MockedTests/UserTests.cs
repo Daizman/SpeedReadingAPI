@@ -110,7 +110,8 @@ namespace SpeedReading.Tests.MockedTests
 				Email = Guid.NewGuid().ToString(),
 				Avatar = string.Empty,
 				FirstName = string.Empty,
-				LastName = string.Empty
+				LastName = string.Empty,
+				Broadcasting = false
 			};
 		}
 

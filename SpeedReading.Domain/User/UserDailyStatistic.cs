@@ -1,4 +1,4 @@
-﻿using SpeedReading.Domain.Task;
+﻿using SpeedReading.Domain.User.OwnedTables;
 
 namespace SpeedReading.Domain.User
 {
@@ -9,7 +9,7 @@ namespace SpeedReading.Domain.User
 		public Guid Id { get; set; }
 		public Guid UserId { get; set; }
 		public DateTime Date { get; set; }
-		public List<TrainingTask> CompletedTasks { get; set; } = new();
+		public List<UserTaskStatistic> CompletedTasks { get; set; } = new();
 		/*public List<TrainingTask> AdditionalTasks => PlanedTaskPercent < 100 
 			? new() 
 			: CompletedTasks.GetRange(10, CompletedTasksCount - 10);*/
