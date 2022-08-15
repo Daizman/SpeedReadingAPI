@@ -152,19 +152,5 @@ namespace SpeedReading.Application.Common.Implementation
 			RevokeRefreshToken(token, ipAddress, "Replaced by new token", newRefreshToken.Token);
 			return newRefreshToken;
 		}
-
-		public async Task RevokeTokenAsync(string token, string ipAddress)
-		{
-			User user = await GetUserByRefreshTokenAsync(token);
-			RefreshToken refreshToken = GetRefreshTokenForUserToken(user, token);  // Не может быть null из-за строки выше, упадем с UserNotFound
-
-			if (!refreshToken.IsActive)
-			{
-				throw new InvalidTokenException();
-			}
-
-			RevokeRefreshToken(refreshToken, ipAddress, "Revoked without replacement");
-			await UpdateUserTokensAsync(user);
-		}
 	}
 }

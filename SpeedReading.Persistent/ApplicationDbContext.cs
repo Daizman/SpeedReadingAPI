@@ -1,5 +1,6 @@
 ﻿using SpeedReading.Application.Common.Interfaces;
 using SpeedReading.Domain;
+using SpeedReading.Domain.Localization;
 using SpeedReading.Domain.User;
 using SpeedReading.Persistent.EntityTypeConfigurations;
 
@@ -18,6 +19,8 @@ namespace SpeedReading.Persistent
 		public DbSet<PicturePair> PicturePairs { get; set; }
 		public DbSet<Schulte> Schultes { get; set; }
 		public DbSet<TaskWithText> TasksWithTexts { get; set; }
+		public DbSet<Language> Languages { get; set; }
+		public DbSet<TextResource> TextResources { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
@@ -38,6 +41,8 @@ namespace SpeedReading.Persistent
 			builder.ApplyConfiguration(new PicturePairsConfiguration());
 			builder.ApplyConfiguration(new SchultesConfiguration());
 			builder.ApplyConfiguration(new TaskWithTextConfiguration());
+			builder.ApplyConfiguration(new LanguageConfiguration());
+			builder.ApplyConfiguration(new TextResourceConfiguration());
 			base.OnModelCreating(builder);
 		}
 	}

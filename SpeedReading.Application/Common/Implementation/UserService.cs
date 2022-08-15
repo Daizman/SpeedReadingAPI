@@ -40,7 +40,8 @@ namespace SpeedReading.Application.Common.Implementation
 				FirstName = dto.FirstName ?? string.Empty,
 				LastName = dto.LastName ?? string.Empty,
 				RegistrationDate = DateTime.UtcNow,
-				Broadcasting = dto.Broadcasting
+				Broadcasting = dto.Broadcasting,
+				UserInterfaceLanguageId = dto.LanguageId
 			};
 
 			await _context.Users.AddAsync(user);
@@ -60,6 +61,7 @@ namespace SpeedReading.Application.Common.Implementation
 			user.FirstName = dto.FirstName ?? user.FirstName;
 			user.LastName = dto.LastName ?? user.LastName;
 			user.Broadcasting = dto.Broadcasting ?? user.Broadcasting;
+			user.UserInterfaceLanguageId = dto.LanguageId ?? user.UserInterfaceLanguageId;
 			
 			await _context.SaveChangesAsync();
 		}

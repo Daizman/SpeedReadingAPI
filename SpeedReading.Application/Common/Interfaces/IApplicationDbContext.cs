@@ -1,4 +1,5 @@
 ﻿using SpeedReading.Domain;
+using SpeedReading.Domain.Localization;
 using SpeedReading.Domain.Task;
 using SpeedReading.Domain.User;
 
@@ -17,6 +18,8 @@ namespace SpeedReading.Application.Common.Interfaces
 		DbSet<PicturePair> PicturePairs { get; set; }
 		DbSet<Schulte> Schultes { get; set; }
 		DbSet<TaskWithText> TasksWithTexts { get; set; }
+		DbSet<Language> Languages { get; set; }
+		DbSet<TextResource> TextResources { get; set; }
 
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 	}

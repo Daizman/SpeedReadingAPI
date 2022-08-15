@@ -4,7 +4,7 @@ namespace SpeedReading.Application.Common.Interfaces
 {
 	public interface IUserStatisticService
 	{
-		Task<UserDailyStatisticDto> GetUserDailyStatistic(Guid userId, DateTime date);
-		Task AddUserTaskDailyStatistic(AddUserTaskDailyStatisticDto dailyStatistic);
+		Task<UserDailyStatisticDto> GetUserDailyStatisticAsync(Guid userId, DateTime date);
+		Task AddUserTaskDailyStatisticAsync(AddUserTaskDailyStatisticDto dailyStatistic);
 	}
 }

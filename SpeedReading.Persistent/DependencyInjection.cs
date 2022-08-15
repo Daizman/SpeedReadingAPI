@@ -21,6 +21,7 @@ namespace SpeedReading.Persistent
 			services.AddScoped<IJwtUtils, JwtUtils>();
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IAuthService, AuthService>();
+			services.AddScoped<IUserStatisticService, UserStatisticService>();
 			return services;
 		}
 	}

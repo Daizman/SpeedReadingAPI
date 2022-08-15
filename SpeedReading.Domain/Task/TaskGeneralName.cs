@@ -7,5 +7,6 @@ namespace SpeedReading.Domain.Task
 		public TaskName ProgramName { get; set; }
 		public string Title { get; set; }
 		public string Description { get; set; }
+		public int LanguageId { get; set; }
 	}
 }

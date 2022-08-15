@@ -67,53 +67,6 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 		}
 
 		[Fact]
-		public async System.Threading.Tasks.Task RevokeTokenAsync_WithIncorrectToken_ThrowsUserNotFound()
-		{
-			// Arrange
-			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
-			string token = "asdsadsa";
-			// Act
-			// Assert
-			await Assert.ThrowsAsync<UserNotFoundException>(async () =>
-			{
-				await authService.RevokeTokenAsync(token, _ipAddress);
-			});
-		}
-
-		[Fact]
-		public async System.Threading.Tasks.Task RevokeTokenAsync_WithNotActiveToken_ThrowsInvalidToken()
-		{
-			// Arrange
-			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
-			var token = (await authService.AuthenticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
-			await authService.RevokeTokenAsync(token, _ipAddress);
-			// Act
-			// Assert
-			await Assert.ThrowsAsync<InvalidTokenException>(async () =>
-			{
-				await authService.RevokeTokenAsync(token, _ipAddress);
-			});
-		}
-
-		[Fact]
-		public async System.Threading.Tasks.Task RevokeTokenAsync_WithCorrectToken_ReturnsVoid()
-		{
-			// Arrange
-			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
-			var token = (await authService.AuthenticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
-			// Act
-			await authService.RevokeTokenAsync(token, _ipAddress);
-			var refreshToken = (await _context.Users.FirstAsync(u => u.Id == ApplicationContextFactory.UserA.Id)).RefreshTokens.FirstOrDefault(rt => rt.Token == token);
-			// Assert
-			refreshToken.Should().NotBeNull();
-			refreshToken.Should().BeOfType<RefreshToken>();
-			refreshToken?.IsActive.Should().Be(false);
-			refreshToken?.IsRevoked.Should().Be(true);
-			refreshToken?.ReplacedByToken.Should().BeEmpty();
-			refreshToken?.RevokedReason.Should().Be("Revoked without replacement");
-		}
-
-		[Fact]
 		public async System.Threading.Tasks.Task RefreshTokenAsync_WithIncorrectToken_ThrowsUserNotFound()
 		{
 			// Arrange
@@ -122,21 +75,6 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.Auth
 			// Act
 			// Assert
 			await Assert.ThrowsAsync<UserNotFoundException>(async () =>
-			{
-				await authService.RefreshTokenAsync(token, _ipAddress);
-			});
-		}
-
-		[Fact]
-		public async System.Threading.Tasks.Task RefreshTokenAsync_WithRevokedToken_ThrowsInvalidToken()
-		{
-			// Arrange
-			var authService = new AuthService(_context, _mapper, _jwtUtils, _settings);
-			var token = (await authService.AuthenticateAsync(new(ApplicationContextFactory.UserA.Login, "password1"), _ipAddress)).RefreshToken;
-			await authService.RevokeTokenAsync(token, _ipAddress);
-			// Act
-			// Assert
-			await Assert.ThrowsAsync<InvalidTokenException>(async () =>
 			{
 				await authService.RefreshTokenAsync(token, _ipAddress);
 			});

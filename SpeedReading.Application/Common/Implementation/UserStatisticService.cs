@@ -3,6 +3,7 @@ using SpeedReading.Application.Dtos.User;
 using SpeedReading.Domain.Task;
 using SpeedReading.Domain.Task.Enums;
 using SpeedReading.Domain.User;
+using SpeedReading.Domain.User.OwnedTables;
 
 namespace SpeedReading.Application.Common.Implementation
 {
@@ -10,46 +11,55 @@ namespace SpeedReading.Application.Common.Implementation
 	{
 		public UserStatisticService(IApplicationDbContext context, IMapper mapper) : base(context, mapper) { }
 
-		public async Task<UserDailyStatisticDto> GetUserDailyStatistic(Guid userId, DateTime date)
+		public async Task<UserDailyStatisticDto> GetUserDailyStatisticAsync(Guid userId, DateTime date)
 		{
-			await CheckUserExistence(userId);
+			await CheckUserExistenceAsync(userId);
 
-			var statistic = await FindUserDailyStatistic(userId, date);
+			var statistic = await FindUserDailyStatisticAsync(userId, date);
 			if (statistic is null)
 			{
 				return new(Guid.NewGuid(), userId, date, new(), new());
 			}
 
-			var (programTasks, additionalTasks) = await CalculateDailyStatistic(statistic);
+			var (programTasks, additionalTasks) = await CalculateDailyStatisticAsync(statistic);
 
 			return new(statistic.Id, statistic.UserId, statistic.Date, programTasks, additionalTasks);
 		}
 
-		public async Task AddUserTaskDailyStatistic(AddUserTaskDailyStatisticDto dailyStatistic)
+		public async Task AddUserTaskDailyStatisticAsync(AddUserTaskDailyStatisticDto dailyStatistic)
 		{
-			await CheckUserExistence(dailyStatistic.UserId);
+			await CheckUserExistenceAsync(dailyStatistic.UserId);
 
-			var statistic = await FindUserDailyStatistic(dailyStatistic.UserId, dailyStatistic.Date);
+			var statistic = await FindUserDailyStatisticAsync(dailyStatistic.UserId, dailyStatistic.Date);
+			statistic ??= await CreateUserDailyStatisticAsync(dailyStatistic);
 
-			if (statistic is null)
+			UserTaskStatistic currentTaskStatistic = new()
 			{
-				statistic = new()
-				{
-					UserId = dailyStatistic.UserId,
-					Date = dailyStatistic.Date,
-					CompletedTasks = new() 
-					{ 
-						new()
-						{
-							CompletedTask = await FindTask(dailyStatistic.TaskId, dailyStatistic.TaskName),
-							Time = dailyStatistic.Time
-						}
-					}
-				};
-			}
+				CompletedTask = await FindTaskAsync(dailyStatistic.TaskId, dailyStatistic.TaskName),
+				Time = dailyStatistic.Time
+			};
+			statistic.CompletedTasks.Add(currentTaskStatistic);
+			await _context.SaveChangesAsync();
 		}
 
-		private async Task CheckUserExistence(Guid userId)
+		private async Task<UserDailyStatistic> CreateUserDailyStatisticAsync(AddUserTaskDailyStatisticDto dailyStatistic)
+		{
+			List<UserTaskStatistic> dailyCompletedTask = new();
+
+			UserDailyStatistic statistic = new()
+			{
+				UserId = dailyStatistic.UserId,
+				Date = dailyStatistic.Date,
+				CompletedTasks = dailyCompletedTask
+			};
+
+			await _context.UsersDailyStatistics.AddAsync(statistic);
+			await _context.SaveChangesAsync();
+
+			return statistic;
+		}
+
+		private async Task CheckUserExistenceAsync(Guid userId)
 		{
 			if (!await _context.Users.AnyAsync(u => u.Id == userId))
 			{
@@ -57,13 +67,12 @@ namespace SpeedReading.Application.Common.Implementation
 			}
 		}
 
-		private async Task<UserDailyStatistic?> FindUserDailyStatistic(Guid userId, DateTime date)
+		private async Task<UserDailyStatistic?> FindUserDailyStatisticAsync(Guid userId, DateTime date)
 		{
 			return await _context.UsersDailyStatistics.FirstOrDefaultAsync(uds => uds.UserId == userId && uds.Date.Date == date.Date);
 		}
 
-
-		private async Task<(List<UserDailyTaskStatisticDto>, List<UserDailyTaskStatisticDto>)> CalculateDailyStatistic(UserDailyStatistic statistic)
+		private async Task<(List<UserDailyTaskStatisticDto>, List<UserDailyTaskStatisticDto>)> CalculateDailyStatisticAsync(UserDailyStatistic statistic)
 		{
 			var completedTasks = statistic.CompletedTasks.GroupBy(ct => ct.CompletedTask.GeneralName.ProgramName);
 
@@ -72,7 +81,7 @@ namespace SpeedReading.Application.Common.Implementation
 			foreach (var task in completedTasks)
 			{
 				var generalTaskInfo = task.First();
-				var record = await FindUserRecrodTimeInTask(statistic.UserId, generalTaskInfo.CompletedTask.GeneralName.ProgramName);
+				var record = await FindUserRecrodTimeInTaskAsync(statistic.UserId, generalTaskInfo.CompletedTask.GeneralName.ProgramName);
 
 				UserDailyTaskStatisticDto stat = new(
 						generalTaskInfo.CompletedTask.Id,
@@ -94,7 +103,7 @@ namespace SpeedReading.Application.Common.Implementation
 			return (programTasks, additionalTasks);
 		}
 
-		private async Task<TimeSpan?> FindUserRecrodTimeInTask(Guid userId, TaskName taskName)
+		private async Task<TimeSpan?> FindUserRecrodTimeInTaskAsync(Guid userId, TaskName taskName)
 		{
 			return await _context.UsersDailyStatistics.Where(uds => uds.UserId == userId)
 												      .SelectMany(uds => uds.CompletedTasks)
@@ -104,7 +113,7 @@ namespace SpeedReading.Application.Common.Implementation
 													  .FirstOrDefaultAsync();
 		}
 
-		private async Task<TrainingTask> FindTask(Guid taskId, TaskName taskName)
+		private async Task<TrainingTask> FindTaskAsync(Guid taskId, TaskName taskName)
 		{
 			var generalInfo = await _context.TasksGeneralNames.FirstOrDefaultAsync(tgn => tgn.ProgramName == taskName);
 			if (generalInfo is null)
