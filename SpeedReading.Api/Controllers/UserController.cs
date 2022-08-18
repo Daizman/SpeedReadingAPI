@@ -63,7 +63,9 @@ namespace SpeedReading.Api.Controllers
 		///		email: "email1",
 		///		avatar: "base64image" | null,
 		///		firstName: "firstName" | null,
-		///		lastName: "lastName" | null
+		///		lastName: "lastName" | null,
+		///		broadCasting: bool,
+		///		languageId: int
 		/// }
 		/// </remarks>
 		/// <param name="dto">CreateUserDto object</param>
@@ -91,7 +93,9 @@ namespace SpeedReading.Api.Controllers
 		///		email: "email1" | null,
 		///		avatar: "base64image" | null,
 		///		firstName: "firstName" | null,
-		///		lastName: "lastName" | null
+		///		lastName: "lastName" | null,
+		///		broadCasting: bool | null,
+		///		languageId: int | null
 		/// }
 		/// </remarks>
 		/// <param name="dto"></param>

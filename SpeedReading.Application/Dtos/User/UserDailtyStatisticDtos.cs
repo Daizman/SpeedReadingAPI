@@ -5,7 +5,7 @@ namespace SpeedReading.Application.Dtos.User
 	public record UserDailyTaskStatisticDto(Guid TaskId, string Name, string Type, int CompleteCount, TimeSpan? Time, TimeSpan? RecordTime);
 
 	public record UserDailyStatisticDto(
-		Guid Id,
+		int Id,
 		Guid UserId,
 		DateTime Date,
 		List<UserDailyTaskStatisticDto> CompletedTasks,

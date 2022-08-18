@@ -18,7 +18,7 @@ namespace SpeedReading.Application.Common.Implementation
 			var statistic = await FindUserDailyStatisticAsync(userId, date);
 			if (statistic is null)
 			{
-				return new(Guid.NewGuid(), userId, date, new(), new());
+				return new(default, userId, date, new(), new());
 			}
 
 			var (programTasks, additionalTasks) = await CalculateDailyStatisticAsync(statistic);
@@ -74,14 +74,14 @@ namespace SpeedReading.Application.Common.Implementation
 
 		private async Task<(List<UserDailyTaskStatisticDto>, List<UserDailyTaskStatisticDto>)> CalculateDailyStatisticAsync(UserDailyStatistic statistic)
 		{
-			var completedTasks = statistic.CompletedTasks.GroupBy(ct => ct.CompletedTask.GeneralName.ProgramName);
+			var completedTasks = statistic.CompletedTasks.GroupBy(ct => ct.CompletedTask.Id);
 
 			List<UserDailyTaskStatisticDto> programTasks = new();
 			List<UserDailyTaskStatisticDto> additionalTasks = new();
 			foreach (var task in completedTasks)
 			{
 				var generalTaskInfo = task.First();
-				var record = await FindUserRecrodTimeInTaskAsync(statistic.UserId, generalTaskInfo.CompletedTask.GeneralName.ProgramName);
+				var record = await FindUserRecrodTimeInTaskAsync(statistic.UserId, task.Key);
 
 				UserDailyTaskStatisticDto stat = new(
 						generalTaskInfo.CompletedTask.Id,
@@ -103,12 +103,12 @@ namespace SpeedReading.Application.Common.Implementation
 			return (programTasks, additionalTasks);
 		}
 
-		private async Task<TimeSpan?> FindUserRecrodTimeInTaskAsync(Guid userId, TaskName taskName)
+		private async Task<TimeSpan?> FindUserRecrodTimeInTaskAsync(Guid userId, Guid taskId)
 		{
 			return await _context.UsersDailyStatistics.Where(uds => uds.UserId == userId)
 												      .SelectMany(uds => uds.CompletedTasks)
-													  .Where(ct => ct.CompletedTask.GeneralName.ProgramName == taskName && ct.Time.HasValue)
-												      .OrderByDescending(ct => ct.Time)
+													  .Where(ct => ct.CompletedTask.Id == taskId && ct.Time.HasValue)
+												      .OrderBy(ct => ct.Time)
 													  .Select(ct => ct.Time)
 													  .FirstOrDefaultAsync();
 		}

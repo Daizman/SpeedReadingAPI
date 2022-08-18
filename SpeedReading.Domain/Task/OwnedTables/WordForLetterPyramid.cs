@@ -7,7 +7,9 @@ namespace SpeedReading.Domain.Task.OwnedTables
 	public class WordForLetterPyramid
 	{
 		[JsonIgnore]
-		public Guid Id { get; set; }
+		public int Id { get; set; }
 		public string Word { get; set; }
+
+		public int LanguageId { get; set; }
 	}
 }

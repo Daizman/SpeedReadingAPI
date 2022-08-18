@@ -125,7 +125,7 @@ namespace SpeedReading.Tests.WithInMemoryDatabase.User
 		}
 
 		[Fact]
-		public async System.Threading.Tasks.Task UpdateUserAsync_WithExistingUser_ReturnsVoid()
+		public async System.Threading.Tasks.Task UpdateUserAsync_WithExistingUser_ReturnsTask()
 		{
 			// Arrange
 			var userService = new UserService(_context, _mapper);
